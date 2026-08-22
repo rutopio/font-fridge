@@ -81,6 +81,10 @@ export default {
           "Content-Type": "text/markdown; charset=utf-8",
           Link: LINK_HEADER,
           "X-Content-Type-Options": "nosniff",
+          // Every URL can answer as HTML or as markdown depending on Accept.
+          // Without this a CDN caches whichever variant it saw first and then
+          // serves it to the other kind of client (acceptmarkdown.com).
+          Vary: "Accept, Accept-Encoding",
         },
       });
     }
@@ -126,6 +130,10 @@ export default {
       next.headers.set(name, value);
     }
     next.headers.set("Link", LINK_HEADER);
+    // Pairs with the markdown branch above: these URLs vary on Accept, so the
+    // HTML variant must say so too or a cache can hand it to an agent that
+    // asked for markdown.
+    next.headers.set("Vary", "Accept, Accept-Encoding");
 
     if (isCacheablePage && next.status === 200) {
       next.headers.set(
