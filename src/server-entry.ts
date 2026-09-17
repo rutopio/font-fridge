@@ -1,16 +1,23 @@
 import serverEntry from "@tanstack/react-start/server-entry";
+import type { FontRecord } from "@/lib/fonts/types";
 import { mcpEndpoint } from "@/mcp/server";
+
+const BASE_URL = "https://font.chingru.com";
+const DETAIL_TABS = [
+  "instances",
+  "paragraph",
+  "glyphs",
+  "detail",
+  "designer",
+  "use",
+  "license",
+];
 
 const LINK_HEADER = [
   '</llms.txt>; rel="describedby"; type="text/markdown"',
   '</.well-known/api-catalog>; rel="api-catalog"',
   '</openapi.json>; rel="service-desc"; type="application/openapi+json"',
 ].join(", ");
-
-const CRAWLER_UA =
-  /bot|crawler|spider|GPTBot|ClaudeBot|Bytespider|facebookexternalhit|slurp/i;
-
-const FILTERED_CRAWLER_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>FontFridge</title><link rel="canonical" href="https://font.chingru.com/"><meta name="robots" content="noindex,follow"></head><body><p>Filtered views of the FontFridge catalog are rendered in the browser. <a href="/">Browse the full catalog</a>.</p></body></html>`;
 
 const HOME_CACHE_SECONDS = 600;
 const HOME_SWR_SECONDS = 3600;
@@ -19,6 +26,48 @@ const HOME_SWR_SECONDS = 3600;
 // so code-only deploys don't invalidate cached detail renders.
 declare const __BUILD_ID__: string;
 declare const __DATA_VERSION__: string;
+
+async function resolveCatalogUrl(signal?: AbortSignal): Promise<string> {
+  try {
+    const m = await fetch("/catalog-manifest.json", { signal });
+    if (!m.ok) return "/catalog.json";
+    const { path } = (await m.json()) as { path?: string };
+    return path ?? "/catalog.json";
+  } catch (err) {
+    return "/catalog.json";
+  }
+}
+
+async function generateSitemap(): Promise<string> {
+  const catalogUrl = await resolveCatalogUrl();
+  const res = await fetch(new URL(catalogUrl, BASE_URL));
+  if (!res.ok) throw new Error(`catalog fetch failed: ${res.status}`);
+  const fonts = (await res.json()) as FontRecord[];
+
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${BASE_URL}/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>`;
+
+  for (const font of fonts) {
+    for (const tab of DETAIL_TABS) {
+      xml += `
+  <url>
+    <loc>${BASE_URL}/${tab}/${encodeURIComponent(font.id)}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+    }
+  }
+
+  xml += `
+</urlset>`;
+
+  return xml;
+}
 
 function cacheKey(request: Request, version: string): Request {
   const url = new URL(request.url);
@@ -66,6 +115,18 @@ export default {
     const mcp = await mcpEndpoint(request, assets);
     if (mcp) return mcp;
 
+    const url = new URL(request.url);
+    if (url.pathname === "/sitemap.xml") {
+      const xml = await generateSitemap();
+      return new Response(xml, {
+        status: 200,
+        headers: {
+          "Content-Type": "application/xml; charset=utf-8",
+          "Cache-Control": "public, max-age=3600",
+        },
+      });
+    }
+
     const accept = request.headers?.get?.("accept") ?? "";
     if (accept.includes("text/markdown") && !accept.includes("text/html")) {
       const url = new URL(request.url);
@@ -85,23 +146,6 @@ export default {
           // Without this a CDN caches whichever variant it saw first and then
           // serves it to the other kind of client (acceptmarkdown.com).
           Vary: "Accept, Accept-Encoding",
-        },
-      });
-    }
-
-    const url = new URL(request.url);
-    if (
-      url.pathname === "/" &&
-      url.search !== "" &&
-      CRAWLER_UA.test(request.headers?.get?.("user-agent") ?? "")
-    ) {
-      return new Response(FILTERED_CRAWLER_HTML, {
-        status: 200,
-        headers: {
-          "Content-Type": "text/html; charset=utf-8",
-          "Cache-Control": "public, max-age=3600",
-          "X-Robots-Tag": "noindex, follow",
-          ...SECURITY_HEADERS,
         },
       });
     }

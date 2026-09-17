@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteRouteImport } from './routes/index/route'
 import { Route as FontIdRouteRouteImport } from './routes/$fontId/route'
+import { Route as AboutRouteRouteImport } from './routes/about/route'
+import { Route as ContactRouteRouteImport } from './routes/contact/route'
+import { Route as PrivacyRouteRouteImport } from './routes/privacy/route'
 import { Route as TabFontIdRouteRouteImport } from './routes/$tab.$fontId/route'
 
 const IndexRouteRoute = IndexRouteRouteImport.update({
@@ -23,6 +26,21 @@ const FontIdRouteRoute = FontIdRouteRouteImport.update({
   path: '/$fontId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRouteRoute = AboutRouteRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRouteRoute = ContactRouteRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRouteRoute = PrivacyRouteRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TabFontIdRouteRoute = TabFontIdRouteRouteImport.update({
   id: '/$tab/$fontId',
   path: '/$tab/$fontId',
@@ -32,30 +50,50 @@ const TabFontIdRouteRoute = TabFontIdRouteRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRouteRoute
   '/$fontId': typeof FontIdRouteRoute
+  '/about': typeof AboutRouteRoute
+  '/contact': typeof ContactRouteRoute
+  '/privacy': typeof PrivacyRouteRoute
   '/$tab/$fontId': typeof TabFontIdRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRouteRoute
   '/$fontId': typeof FontIdRouteRoute
+  '/about': typeof AboutRouteRoute
+  '/contact': typeof ContactRouteRoute
+  '/privacy': typeof PrivacyRouteRoute
   '/$tab/$fontId': typeof TabFontIdRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRouteRoute
   '/$fontId': typeof FontIdRouteRoute
+  '/about': typeof AboutRouteRoute
+  '/contact': typeof ContactRouteRoute
+  '/privacy': typeof PrivacyRouteRoute
   '/$tab/$fontId': typeof TabFontIdRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$fontId' | '/$tab/$fontId'
+  fullPaths:
+    '/' | '/$fontId' | '/about' | '/contact' | '/privacy' | '/$tab/$fontId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$fontId' | '/$tab/$fontId'
-  id: '__root__' | '/' | '/$fontId' | '/$tab/$fontId'
+  to: '/' | '/$fontId' | '/about' | '/contact' | '/privacy' | '/$tab/$fontId'
+  id:
+    | '__root__'
+    | '/'
+    | '/$fontId'
+    | '/about'
+    | '/contact'
+    | '/privacy'
+    | '/$tab/$fontId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRouteRoute: typeof IndexRouteRoute
   FontIdRouteRoute: typeof FontIdRouteRoute
+  AboutRouteRoute: typeof AboutRouteRoute
+  ContactRouteRoute: typeof ContactRouteRoute
+  PrivacyRouteRoute: typeof PrivacyRouteRoute
   TabFontIdRouteRoute: typeof TabFontIdRouteRoute
 }
 
@@ -75,6 +113,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FontIdRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$tab/$fontId': {
       id: '/$tab/$fontId'
       path: '/$tab/$fontId'
@@ -88,6 +147,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRouteRoute: IndexRouteRoute,
   FontIdRouteRoute: FontIdRouteRoute,
+  AboutRouteRoute: AboutRouteRoute,
+  ContactRouteRoute: ContactRouteRoute,
+  PrivacyRouteRoute: PrivacyRouteRoute,
   TabFontIdRouteRoute: TabFontIdRouteRoute,
 }
 export const routeTree = rootRouteImport
