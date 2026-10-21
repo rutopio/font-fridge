@@ -6,7 +6,7 @@ let warned = false;
 function warnStorageUnavailable() {
   if (warned) return;
   warned = true;
-  toast.error("Changes won't be saved on this device", {
+  toast.error("Changes will not be saved on this device", {
     description:
       "Private browsing or full storage. Favorites, presets, and preview settings are lost when you reload.",
     id: "storage-unavailable",

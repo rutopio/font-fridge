@@ -62,7 +62,7 @@ function Contact() {
         <h2>Font metadata issues</h2>
 
         <p>
-          If you find an error in a font's tags, classifications, or axes (e.g.
+          If you find an error in a font's tags, classifications, or axes (for example,
           wrong weight range, missing features, misclassified language support),
           these often trace to the upstream Google Fonts repository or the
           harvester. Consider filing an issue upstream first.

@@ -63,7 +63,7 @@ function Privacy() {
           </li>
         </ul>
 
-        <h2>What we don't do</h2>
+        <h2>What we do not do</h2>
 
         <ul>
           <li>No tracking pixels or third-party analytics</li>
