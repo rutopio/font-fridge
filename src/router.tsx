@@ -18,6 +18,20 @@ export function getRouter() {
 
   setupRouterSsrQueryIntegration({ router, queryClient });
 
+  if (typeof window !== "undefined" && import.meta.env.PROD) {
+    // The GA config disables automatic page views; record the first resolved
+    // route and subsequent client-side navigations exactly once.
+    router.subscribe("onResolved", ({ fromLocation, toLocation }) => {
+      window.gtag?.("event", "page_view", {
+        page_path: toLocation.pathname,
+        page_location: window.location.href,
+        page_referrer: fromLocation
+          ? new URL(fromLocation.href, window.location.origin).href
+          : document.referrer,
+      });
+    });
+  }
+
   return router;
 }
 

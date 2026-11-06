@@ -31,6 +31,8 @@ const colsScript = `try{var c=localStorage['font-fridge.cols'];document.document
 
 // Not a secret: public site identifier for Cloudflare Web Analytics.
 const CF_BEACON_TOKEN = "43a47f0f85b94210a51857053ea45086";
+const GA_MEASUREMENT_ID = "G-19K7CQBM88";
+const gaScript = `window.dataLayer=window.dataLayer||[];window.gtag=function(){window.dataLayer.push(arguments)};window.gtag('js',new Date());window.gtag('config','${GA_MEASUREMENT_ID}',{send_page_view:false});`;
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -123,6 +125,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static colsScript, no user input; must run blocking in <head> pre-hydration. */}
         <script dangerouslySetInnerHTML={{ __html: colsScript }} />
         <HeadContent />
+        {import.meta.env.PROD && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            />
+            {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static GA measurement ID and initialization, no user input. */}
+            <script dangerouslySetInnerHTML={{ __html: gaScript }} />
+          </>
+        )}
       </head>
       <body>
         <MotionConfig reducedMotion="user">

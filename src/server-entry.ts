@@ -102,7 +102,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
   // Keep in sync with public/_headers (static assets); this covers SSR HTML.
   "Content-Security-Policy":
-    "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://lh3.googleusercontent.com; connect-src 'self' https://fonts.googleapis.com https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://lh3.googleusercontent.com https://www.google-analytics.com; connect-src 'self' https://fonts.googleapis.com https://cloudflareinsights.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
 };
 
 export default {

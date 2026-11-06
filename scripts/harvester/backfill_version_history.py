@@ -6,6 +6,7 @@ Resumable: skips families that already have a firstCommitDate unless --force.
 
     GITHUB_TOKEN=... python3 backfill_version_history.py [fonts.json] [--ids=a,b,c] [--force]
 """
+import http.client
 import json
 import os
 import re
@@ -83,11 +84,13 @@ def _request(url):
                 last_exc = e
                 continue
             raise
-        except urllib.error.URLError as e:
+        except (urllib.error.URLError, ConnectionError, TimeoutError,
+                http.client.HTTPException) as e:
             back = 2 ** attempt
-            print(f"    network error ({e.reason}), retry in {back}s…",
-                  file=sys.stderr)
-            time.sleep(back)
+            if attempt < 3:
+                print(f"    network error ({getattr(e, 'reason', e)}), retry in {back}s…",
+                      file=sys.stderr)
+                time.sleep(back)
             last_exc = e
             continue
     if last_exc:
@@ -205,7 +208,8 @@ def main():
     except Exception as e:
         save()
         print(f"\nStopped on error after {done} families: {e}. "
-              f"Progress saved; re-run to resume.", file=sys.stderr)
+              "Partial results saved locally; this failed job will not publish them.",
+              file=sys.stderr)
         return 1
 
     save()

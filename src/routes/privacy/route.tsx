@@ -30,15 +30,13 @@ function Privacy() {
         <h1>Privacy Policy</h1>
 
         <p>
-          <strong>Last updated: September 2024</strong>
+          <strong>Last updated: November 2026</strong>
         </p>
 
         <p>
-          FontFridge respects your privacy. The site is designed to work without
-          collecting personal information. When you use FontFridge, you interact
-          only with the public, read-only font catalog. All font preferences
-          (favorites, theme, sort order) are stored locally in your browser and
-          never sent to any server.
+          FontFridge's font catalog is public and does not require an account.
+          Font preferences (favorites, theme, sort order) are stored locally in
+          your browser and are not sent to FontFridge's server.
         </p>
 
         <h2>What we collect</h2>
@@ -57,6 +55,13 @@ function Privacy() {
             identifiers are stored.
           </li>
           <li>
+            <strong>Google Analytics:</strong> Google Analytics 4 records page
+            views and site interactions. Google may use cookies to distinguish
+            visits and process browser, device, and traffic information. See
+            Google's{" "}
+            <a href="https://policies.google.com/privacy">privacy policy</a>.
+          </li>
+          <li>
             <strong>localStorage:</strong> Your browser stores preferences
             locally (theme, view mode, sort order, saved favorites). This data
             never leaves your device.
@@ -66,11 +71,8 @@ function Privacy() {
         <h2>What we do not do</h2>
 
         <ul>
-          <li>No tracking pixels or third-party analytics</li>
           <li>No login system or user accounts</li>
-          <li>No selling or sharing of data</li>
-          <li>No cookies for advertising or behavior tracking</li>
-          <li>No external API calls that identify you</li>
+          <li>No sale of visitor data</li>
         </ul>
 
         <h2>Font files</h2>
