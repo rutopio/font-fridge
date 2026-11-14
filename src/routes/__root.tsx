@@ -22,7 +22,7 @@ import { PreviewProvider } from "@/lib/preview/context";
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
 import { THEME_COLOR_DARK, THEME_COLOR_LIGHT } from "@/lib/site-meta";
 import { useWebMcp } from "@/lib/webmcp/register";
-import appCss from "@/styles.css?url";
+import appCss from "@/styles/globals.css?url";
 
 // Blocking FOUC scripts. Light is default; dark is opt-in only.
 const themeScript = `try{var d=localStorage['font-fridge.theme']==='dark';if(d)document.documentElement.classList.add('dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=d?'${THEME_COLOR_DARK}':'${THEME_COLOR_LIGHT}'}catch(e){}`;
@@ -40,7 +40,10 @@ export const Route = createRootRouteWithContext<{
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1" },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1, maximum-scale=1",
+      },
       { title: SITE_NAME },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "theme-color", content: THEME_COLOR_LIGHT },

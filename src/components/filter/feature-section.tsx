@@ -1,11 +1,11 @@
 import { CodeIcon } from "@phosphor-icons/react";
 import { useMemo } from "react";
+import { filterGroupsByQuery, useSearchSort } from "@/hooks/use-facet-search";
 import { featureName, groupFeatures } from "@/lib/fonts/features";
 import type { MatchMode } from "@/lib/fonts/filter";
 import { NoMatches, SearchBox } from "./search-box";
 import { Pills } from "./section";
 import { SectionHeader } from "./section-header";
-import { filterGroupsByQuery, useSearchSort } from "./use-facet-search";
 
 export function FeatureSection({
   features,

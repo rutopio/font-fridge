@@ -2,13 +2,13 @@ import { CaretDownIcon, type Icon } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "motion/react";
 import { Fragment, useId, useMemo, useState } from "react";
 import { Tooltip } from "@/components/ui/tooltip";
+import { useCollapseAnchor } from "@/hooks/use-collapse-anchor";
 import type { MatchMode } from "@/lib/fonts/filter";
 import { EASE_OUT, MOTION_S } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { RARE_THRESHOLD } from "./constants";
 import { PillButton } from "./pill-button";
 import { SectionHeader, type SortMode } from "./section-header";
-import { useCollapseAnchor } from "./use-collapse-anchor";
 
 export function Section({
   title,

@@ -5,11 +5,11 @@ import { EditableValue } from "@/components/ui/editable-value";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip } from "@/components/ui/tooltip";
 import axesData from "@/data/axes.json";
+import { useCollapseAnchor } from "@/hooks/use-collapse-anchor";
 import type { MatchMode } from "@/lib/fonts/filter";
 import { EASE_OUT, MOTION_S } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { SectionHeader } from "./section-header";
-import { useCollapseAnchor } from "./use-collapse-anchor";
 
 const AXES: Record<
   string,

@@ -16,7 +16,7 @@
       "!src/routeTree.gen.ts",
       "!worker-configuration.d.ts",
       "!src/components/ui",
-      "!src/styles.css",
+      "!src/styles/globals.css",
       "!src/data",
       "!scripts/harvester/stress_output.json"
     ]

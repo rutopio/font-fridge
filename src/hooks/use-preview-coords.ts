@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { type FilterSelection, WIDTH_STEP_PCT } from "./filter";
-import type { FontRecord } from "./types";
+import { type FilterSelection, WIDTH_STEP_PCT } from "@/lib/fonts/filter";
+import type { FontRecord } from "@/lib/fonts/types";
 
 export interface PreviewCoords {
   weight: number;

@@ -3,10 +3,10 @@ import { memo } from "react";
 import { FontActions } from "@/components/font-actions";
 import { FontTraits } from "@/components/font-traits";
 import { Badge } from "@/components/ui/badge";
+import { useFontFacePreview } from "@/hooks/use-font-face-preview";
 import type { FilterSelection } from "@/lib/fonts/filter";
 import { useLastDetailTab } from "@/lib/fonts/last-tab";
 import type { FontRecord } from "@/lib/fonts/types";
-import { useFontFacePreview } from "@/lib/fonts/use-font-face-preview";
 import { cardHeight, cardLeading, cardTextSize } from "@/lib/preview/size";
 import { cn } from "@/lib/utils";
 

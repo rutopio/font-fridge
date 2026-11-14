@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useMountEffect } from "@/hooks/use-mount-effect";
+import { usePreviewCoords } from "@/hooks/use-preview-coords";
 import type { FilterSelection } from "@/lib/fonts/filter";
 import { useCoveredCharacters } from "@/lib/fonts/glyph-index";
 import {
@@ -13,7 +14,6 @@ import {
 import { opticalSizing, variationSettings } from "@/lib/fonts/preview-style";
 import { specimenFor } from "@/lib/fonts/specimen";
 import type { FontRecord } from "@/lib/fonts/types";
-import { usePreviewCoords } from "@/lib/fonts/use-preview-coords";
 import { MOTION } from "@/lib/motion";
 import { usePreview } from "@/lib/preview/context";
 

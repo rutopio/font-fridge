@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { SortMode } from "./section-header";
+import type { SortMode } from "@/components/filter/section-header";
 
 export function useSearchSort() {
   const [sort, setSort] = useState<SortMode>("count");

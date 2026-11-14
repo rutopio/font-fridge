@@ -1,6 +1,6 @@
 export const SITE_NAME = "FontFridge";
 
-// Browser-chrome colors (matches --background in styles.css).
+// Browser-chrome colors (matches --background in styles/globals.css).
 export const THEME_COLOR_LIGHT = "#ffffff";
 export const THEME_COLOR_DARK = "#0a0a0a";
 

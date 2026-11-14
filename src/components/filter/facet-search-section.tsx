@@ -1,10 +1,10 @@
 import type { Icon } from "@phosphor-icons/react";
 import { useMemo } from "react";
+import { useSearchSort } from "@/hooks/use-facet-search";
 import type { MatchMode } from "@/lib/fonts/filter";
 import { NoMatches, SearchBox } from "./search-box";
 import { Pills } from "./section";
 import { SectionHeader } from "./section-header";
-import { useSearchSort } from "./use-facet-search";
 
 export type FacetItem = readonly [string, number, string];
 
